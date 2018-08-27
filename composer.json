@@ -1,4 +1,21 @@
 {
+    "name": "cunheise/beanqueue",
+    "description": "Queue for beanstalkd to run task in the background",
+    "type": "library",
+    "keywords": [
+        "beanqueue background task"
+    ],
+    "homepage": "https://github.com/cunheise/beanqueue.git",
+    "license": "Mit",
+    "authors": [
+        {
+            "name": "Nathan Wu",
+            "email": "nathan@joomlacreator.com",
+            "homepage": "http://www.joomlacreator.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "stable",
     "require": {
         "pda/pheanstalk": "^3.1"
     },
