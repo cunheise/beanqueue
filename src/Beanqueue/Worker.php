@@ -16,6 +16,7 @@ use RuntimeException;
  */
 class Worker
 {
+    use LoggerTrait;
     /**
      * @var QueueInterface $queue
      */
@@ -32,12 +33,14 @@ class Worker
         if (isset($options['interval'])) {
             $this->interval = (int)$options['interval'];
         }
+        $this->initLogger($options);
     }
 
     public function process()
     {
         while (true) {
             $taskBundle = $this->queue->pop();
+            $this->getLogger()->info("GET TASK: " . json_encode($taskBundle));
             $task = $this->createTask($taskBundle);
             $task->run($taskBundle->getArguments());
             usleep($this->interval);

@@ -17,7 +17,8 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "pda/pheanstalk": "^3.1"
+        "pda/pheanstalk": "^3.1",
+        "monolog/monolog": "^1.23"
     },
     "autoload": {
         "psr-4": {

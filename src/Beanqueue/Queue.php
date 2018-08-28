@@ -16,6 +16,7 @@ use Pheanstalk\Pheanstalk;
  */
 class Queue implements QueueInterface
 {
+    use LoggerTrait;
     /**
      * @var string $name
      */
@@ -36,6 +37,7 @@ class Queue implements QueueInterface
             $this->name = $options['name'];
         }
         $this->pheanstalk->useTube($this->name);
+        $this->initLogger($options);
     }
 
     /**
@@ -44,6 +46,7 @@ class Queue implements QueueInterface
      */
     public function push(TaskBundle $taskBundle)
     {
+        $this->getLogger()->info("PUSH TASK: " . json_encode($taskBundle));
         $this->pheanstalk->put(json_encode($taskBundle));
         return $this;
     }
@@ -58,6 +61,7 @@ class Queue implements QueueInterface
         }
         $job = $this->pheanstalk->reserve();
         $taskBundle = new TaskBundle(json_decode($job->getData(), true));
+        $this->getLogger()->info("POP TASK: " . json_encode($taskBundle));
         $this->pheanstalk->delete($job);
         return $taskBundle;
     }
